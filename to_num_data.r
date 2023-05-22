@@ -1,5 +1,4 @@
 data <- read.csv("stat_acc_V3.csv", sep = ";")
-
 View(data, "données")
 
 #Remplacement des numéros de véhicule par une valeur en chiffre
@@ -41,3 +40,5 @@ for (val in data$descr_grav) {
     i <- i + 1
 }
 View(data, "données modifiées")
+
+write.csv(data, "csv_cleaned.csv")
