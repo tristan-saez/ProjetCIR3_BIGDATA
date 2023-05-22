@@ -1,4 +1,4 @@
-data <- read.csv("stat_acc_V3.csv", sep = ";")
+data <- read.csv("csv_cleaned.csv", sep = ",", fileEncoding = "latin1")
 View(data, "données")
 
 #Remplacement des numéros de véhicule par une valeur en chiffre
