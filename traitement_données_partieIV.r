@@ -16,6 +16,10 @@ cleaned_with_region <- merge(cleaned, region_code_insee, by.x ="id_code_insee", 
 
 cleaned_with_region_population <-merge(cleaned_with_region, population_per_region, by.x="code_region", by.y="CODREG", all.x=TRUE)
 
+doublons <- duplicated(cleaned_with_region_population)
+
+cleaned_with_region_population <- subset(cleaned_with_region_population, !doublons)
+
 #View(cleaned_with_region_population)
 
 View(cleaned_with_region_population)
