@@ -1,4 +1,4 @@
-data <- read.csv("ProjetCIR3_BIGDATA/stat_acc_V3.csv", sep=",")
+data <- read.csv("stat_acc_V3.csv", sep=",")
 
 #I-Type de données
 type <- class(data)
