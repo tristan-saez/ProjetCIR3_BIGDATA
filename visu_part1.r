@@ -1,6 +1,7 @@
+setwd("C:/Users/Adrien/OneDrive/Bureau/Work/ISEN/Big_Data/Projet A3-20230522/ProjetCIR3_BIGDATA")
 library(ggplot2)
 
-data <- read.csv(file = "stat_acc_V3.csv", header = TRUE,  sep = ";")
+data <- read.csv(file = "csv_cleaned.csv", header = TRUE,  sep = ",")
 
 #Représentations graphiques du nombre d’accidents en fonction des conditions atmosphériques
 
@@ -12,6 +13,7 @@ barplot <- ggplot(data, aes(x = descr_athmo, y = nrow(data))) +
   theme_minimal()
 
 print(barplot)
+ggsave("barplot.png", width = 11, height = 8)
 
 # PIE
 x_athmo <- c(59532, 7296, 2642, 1532, 731, 696, 674, 415, 125)
@@ -29,6 +31,7 @@ barplot_surf <- ggplot(data, aes(x = descr_etat_surf, y = nrow(data))) +
   theme_minimal()
 
 print(barplot_surf)
+ggsave("barplot_surf.png", width = 11, height = 8)
 
 # PIE
 x_surf <- c(59310, 12350, 859, 395, 381, 215, 81, 34, 18)
@@ -53,7 +56,7 @@ barplot_heure <- ggplot(data, aes(x = heure, y = nrow(data))) +
   theme_minimal()
 
 print(barplot_heure)
-
+ggsave("barplot_heure.png", width = 11, height = 8)
 
 # Nombre d’accidents par jour--------------------
 
@@ -72,7 +75,7 @@ barplot_jour <- ggplot(data, aes(x = jour_semaine, y = nrow(data))) +
   theme_minimal()
 
 print(barplot_jour)
-
+ggsave("barplot_jour.png", width = 11, height = 8)
 # jour_semaine <- factor(jour_semaine, levels = c("Lundi",
 #  "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"), ordered = TRUE)
 
@@ -89,11 +92,9 @@ barplot_mois <- ggplot(data, aes(x = mois, y = nrow(data))) +
   theme_minimal()
 
 print(barplot_mois)
-
+ggsave("barplot_mois.png", width = 11, height = 8)
 
 # Nombre d’accidents par ville---------------------
-
-
 i <- 1
 while (i != 21) {
   if (i <= 9) {
@@ -107,12 +108,14 @@ while (i != 21) {
 # Regroupement des villes et comptage du nombre d'occurrences
 groupe_villes <- aggregate(Num_Acc ~ ville, data, length)
 dix_villes <- head(groupe_villes[order(-groupe_villes$Num_Acc), ], 10)
+# print(dix_villes)
 
 # Histogramme du Nombre d’accidents par villes
 barplot_villes <- ggplot(dix_villes, aes(x = ville, y = Num_Acc)) +
   geom_bar(stat = "identity", fill = "#4674af") +
-  labs(x = "Viles", y = "Nombre d'accidents", 
+  labs(x = "Villes", y = "Nombre d'accidents", 
   title = "Nombre d’accidents par villes") +
   theme_minimal()
 
 print(barplot_villes)
+ggsave("barplot_villes.png", width = 11, height = 8)

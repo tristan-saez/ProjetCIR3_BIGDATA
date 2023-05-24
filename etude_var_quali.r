@@ -12,7 +12,7 @@ resultat_chi2_grav <- chisq.test(tableau_croise_grav, simulate.p.value = TRUE)
 residuts_chi2_grav <- resultat_chi2_grav$residuals - min(resultat_chi2_grav$residuals) + 1
 # print(resultat_chi2_grav)
 
-mosaicplot(tableau_croise_grav, color = residuts_chi2_grav, main = "Tableau croisé des catégories de véhicule et des gravités d'accident", 
+mosaicplot(tableau_croise_grav, color = residuts_chi2_grav, shade = TRUE, main = "Tableau croisé des catégories de véhicule et des gravités d'accident", 
            xlab = "Catégories de véhicule", ylab = "Gravités de l'accident")
 # dev.off()
 
