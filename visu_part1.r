@@ -9,10 +9,7 @@ barplot <- ggplot(data, aes(x = descr_athmo, y = nrow(data))) +
   geom_bar(stat = "identity", fill = "steelblue") +
   labs(x = "Conditions Atmosphériques", y = "Nombre d'accidents", 
        title = "Nombre d'accidents en fonction des conditions atmosphériques") +
-  theme_minimal() +
-  theme(plot.title = element_text(size = 16, face = "bold"),
-        axis.title = element_text(size = 12),
-        axis.text.x = element_text(angle = 45, hjust = 1))
+  theme_minimal()
 
 print(barplot)
 
@@ -96,11 +93,22 @@ print(barplot_mois)
 
 # Nombre d’accidents par ville---------------------
 
+
+i <- 1
+while (i != 21) {
+  if (i <= 9) {
+     data$ville[data$ville == paste("PARIS 0", i, sep = "")] <- "PARIS"
+  }else{
+    data$ville[data$ville == paste("PARIS", i, sep = " ")] <- "PARIS"
+  }
+   i <- i + 1
+}
+
 # Regroupement des villes et comptage du nombre d'occurrences
 groupe_villes <- aggregate(Num_Acc ~ ville, data, length)
 dix_villes <- head(groupe_villes[order(-groupe_villes$Num_Acc), ], 10)
-dix_villes <- dix_villes[order(dix_villes$Num_Acc), ]
-# Affichage des résultats
+
+# Histogramme du Nombre d’accidents par villes
 barplot_villes <- ggplot(dix_villes, aes(x = ville, y = Num_Acc)) +
   geom_bar(stat = "identity", fill = "#4674af") +
   labs(x = "Viles", y = "Nombre d'accidents", 
