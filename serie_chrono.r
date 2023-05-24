@@ -1,4 +1,4 @@
-data <- read.csv("stat_acc_V3.csv", sep = ";")
+data <- read.csv("csv_cleaned.csv", sep = ",", fileEncoding = "UTF-8")
 View(data, "données")
 
 tot_mois <- c(
