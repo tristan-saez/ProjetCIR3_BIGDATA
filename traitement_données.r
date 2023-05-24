@@ -1,4 +1,4 @@
-data <- read.csv("stat_acc_V3.csv", sep=",")
+data <- read.csv("stat_acc_V3.csv", sep=";", fileEncoding="UTF-8")
 
 #I-Type de données
 type <- class(data)
