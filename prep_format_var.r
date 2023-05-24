@@ -1,13 +1,12 @@
-#library(rstatix)
+# setwd("C:/Users/Adrien/OneDrive/Bureau/Work/ISEN/Big_Data/Projet A3-20230522/ProjetCIR3_BIGDATA")
 
-data <- read.csv(file = "stat_acc_V3.csv", header = TRUE,  sep = ";")
+# Ouvre le nouveau CSV
+data <- read.csv(file = "csv_cleaned.csv", sep = ",", fileEncoding = "UTF-8")
 
-# Formatage des colones
-data$date <- as.POSIXct(factor(data$date))
-data$Num_Acc <- as.integer(factor(data$Num_Acc))
-data$id_usa <- as.integer(factor(data$id_usa))
-data$id_code_insee <- as.integer(factor(data$id_code_insee))
-data$num_veh <- as.integer(factor(data$num_veh))
-data$descr_grav <- as.integer(factor(data$descr_grav))
+# Formatage des colones moda
+data$date <- as.POSIXct(data$date)
+data$num_veh <- as.numeric(data$num_veh)
+data$descr_grav <- as.numeric(data$descr_grav)
 
+# Ecrit dans le nouveau CSV
 write.csv(data, "csv_cleaned.csv")
