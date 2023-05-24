@@ -4,7 +4,7 @@ library(rgdal)
 
 map_france <- map("france", fill = TRUE, plot = FALSE)
 departements <- rgdal::readOGR(
-  "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
+  "departements.geojson"
 )
 regions <- rgdal::readOGR(
   "regions.geojson"
@@ -12,11 +12,15 @@ regions <- rgdal::readOGR(
 
 cleaned <- read.csv("csv_cleaned.csv", sep = ",")
 regions_csv <- read.csv("departements-regions.csv")
+code_dep <- c()
 
 tot_dep_parsed <- data.frame(code_dep = unique(departements$code), dep = unique(departements$nom), nb_acc = 0, nb_acc_grave = 0, nb_taux = 0)
 tot_reg_parsed <- data.frame(reg = unique(regions$nom), nb_acc = 0, nb_acc_grave = 0, nb_taux = 0)
 
-code_dep <- substr(cleaned$id_code_insee, start = 1, stop = 2)
+for (value in cleaned$id_code_insee) {
+  value <- ifelse(substr(value, start = 1, stop = 2) == 97, substr(value, start = 1, stop = 3), substr(value, start = 1, stop = 2))
+  code_dep <- append(code_dep, value)
+}
 
 #Calcul du taux d'accidents pour chaque département
 i <- 1
@@ -42,13 +46,13 @@ tot_reg_parsed$nb_taux <- round((tot_reg_parsed$nb_acc_grave / tot_reg_parsed$nb
 # View(tot_dep_parsed)
 
 #Création de la palette de couleurs
-pal <- colorQuantile("YlGnBu", domain = c(0:100), n = 12)
+pal <- colorQuantile("YlGnBu", domain = c(0:100), n = 9)
 
 #Création de la map des départements
 m <- leaflet(data = regions) %>%
   setView(lng = 1.7191036, lat = 46.71109, zoom = 5) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
-  addPolygons(color = ~pal(tot_reg_parsed$nb_taux), label = ~paste0("Taux d'acidents graves en ", tot_reg_parsed$reg, ": ", tot_reg_parsed$nb_taux)) %>%
+  addPolygons(color = ~pal(tot_reg_parsed$nb_taux), label = ~paste0("Taux d'acidents graves en ", tot_reg_parsed$reg, " : ", tot_reg_parsed$nb_taux, "%")) %>%
   addLegend(
     pal = pal,
     values = c(0, 100),
