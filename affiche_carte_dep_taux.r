@@ -9,28 +9,33 @@ departements <- rgdal::readOGR(
 
 cleaned <- read.csv("csv_cleaned.csv", sep=",")
 
-tot_dep_parsed <- data.frame(code_dep = unique(departements$code), dep = unique(departements$nom), nb_acc = 0)
+tot_dep_parsed <- data.frame(code_dep = unique(departements$code), dep = unique(departements$nom), nb_acc = 0, nb_acc_grave = 0, nb_taux = 0)
 
 code_dep <- substr(cleaned$id_code_insee, start = 1, stop = 2)
 
-
+i <- 1
 for (value in code_dep) {
   tot_dep_parsed$nb_acc[value == tot_dep_parsed$code_dep] <- tot_dep_parsed$nb_acc[value == tot_dep_parsed$code_dep] + 1
+  if(cleaned$descr_grav[i] == 1 | cleaned$descr_grav[i] == 2) tot_dep_parsed$nb_acc_grave[value == tot_dep_parsed$code_dep] <- tot_dep_parsed$nb_acc_grave[value == tot_dep_parsed$code_dep] + 1
+
+  i <- i + 1
 }
+
+tot_dep_parsed$nb_taux <- (tot_dep_parsed$nb_acc_grave / tot_dep_parsed$nb_acc) * 100
 
 View(tot_dep_parsed)
 #Création de la palette de couleurs
-pal <- colorNumeric(c("darkmagenta", "yellow", "darkcyan", "darkblue", "black"), domain = c(0:3100))
+pal <- colorQuantile("YlGnBu", domain = c(0:100), n = 12)
 
 #Création de la map des départements
 m <- leaflet(data = departements) %>%
   setView(lng = 1.7191036, lat = 46.71109, zoom = 5) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
-  addPolygons(color = ~pal(tot_dep_parsed$nb_acc), label = ~paste0("Nombre d'acidents en ", tot_dep_parsed$dep, ": ", tot_dep_parsed$nb_acc)) %>%
+  addPolygons(color = ~pal(tot_dep_parsed$nb_taux), label = ~paste0("Taux d'acidents graves en ", tot_dep_parsed$dep, ": ", tot_dep_parsed$nb_taux)) %>%
   addLegend(
     pal = pal,
-    values = c(0, 3200),
+    values = c(0, 100),
     opacity = 1.0,
-    title = "Accidents routiers en France en 2009 (département)")
+    title = "Taux d'accidents graves en France en 2009")
 
 print(m)
