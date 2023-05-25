@@ -1,6 +1,8 @@
 library(leaflet)
 library(rgdal)
+
 library(mapview)
+Sys.setenv("OPENSSL_CONF"="/dev/null")
 
 departements <- rgdal::readOGR(
   "departements.geojson"
@@ -45,6 +47,7 @@ m <- leaflet(data = regions) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(color = ~pal(tot_reg_parsed$nb_acc), label = ~paste0("Taux d'acidents graves en ", tot_reg_parsed$reg, " : ", tot_reg_parsed$nb_acc)) %>%
   addLegend(
+    layerId = "legend",
     pal = pal,
     values = c(0, 6600),
     opacity = 1.0,
@@ -57,6 +60,7 @@ print(m)
 ##############################################################################
 
 # mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_regions_metro.png", selfcontained = FALSE)
+# m <- removeControl(m, "legend")
 
 # #Mayotte
 # m <- setView(m, lng = 45.16545500000001, lat = -12.8245115, zoom = 11)
