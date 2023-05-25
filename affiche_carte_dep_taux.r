@@ -1,6 +1,8 @@
 library(leaflet)
 library(rgdal)
+
 library(mapview)
+Sys.setenv("OPENSSL_CONF"="/dev/null")
 
 departements <- rgdal::readOGR(
   "departements.geojson"
@@ -40,6 +42,7 @@ m <- leaflet(data = departements) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(color = ~pal(tot_dep_parsed$nb_taux), label = ~paste0("Taux d'acidents graves en ", tot_dep_parsed$dep, " : ", tot_dep_parsed$nb_taux,"%")) %>%
   addLegend(
+    layerId = "legend",
     pal = pal,
     values = c(0, 100),
     opacity = 1.0,
