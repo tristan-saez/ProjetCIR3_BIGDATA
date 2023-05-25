@@ -1,8 +1,6 @@
 library(leaflet)
-library(maps)
 library(rgdal)
 
-map_france <- map("france", fill = TRUE, plot = FALSE)
 departements <- rgdal::readOGR(
   "departements.geojson"
 )
