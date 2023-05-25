@@ -1,4 +1,3 @@
-setwd("C:/Users/Adrien/OneDrive/Bureau/Work/ISEN/Big_Data/Projet A3-20230522/ProjetCIR3_BIGDATA")
 library(ggplot2)
 
 data <- read.csv(file = "csv_cleaned.csv", header = TRUE,  sep = ",")
