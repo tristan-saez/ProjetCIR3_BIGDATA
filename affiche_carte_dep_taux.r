@@ -1,5 +1,6 @@
 library(leaflet)
 library(rgdal)
+library(mapview)
 
 departements <- rgdal::readOGR(
   "departements.geojson"
@@ -45,3 +46,11 @@ m <- leaflet(data = departements) %>%
     title = "Taux d'accidents graves en France en 2009")
 
 print(m)
+
+##############################################################################
+##### Les lignes suivantes servent à enregistrer les différentes cartes ######
+##############################################################################
+
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_dep_metro_taux.png", selfcontained = FALSE)
+
+##############################################################################

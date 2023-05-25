@@ -1,5 +1,6 @@
 library(leaflet)
 library(rgdal)
+library(mapview)
 
 departements <- rgdal::readOGR(
   "departements.geojson"
@@ -58,3 +59,36 @@ m <- leaflet(data = regions) %>%
     title = "Taux d'accidents graves en France en 2009")
 
 print(m)
+
+##############################################################################
+##### Les lignes suivantes servent à enregistrer les différentes cartes ######
+##############################################################################
+
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_regions_metro_taux.png", selfcontained = FALSE)
+
+# #Mayotte
+# m <- setView(m, lng = 45.16545500000001, lat = -12.8245115, zoom = 11)
+# print(m)
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_regions_mayotte_taux.png", selfcontained = FALSE)
+
+# #Guyane française
+# m <- setView(m, lng = -53.07822999999999, lat = 3.9517949999999997, zoom = 8)
+# print(m)
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_regions_guyane_taux.png", selfcontained = FALSE)
+
+# #La Réunion
+# m <- setView(m, lng = 55.532062499999995, lat = -21.114533, zoom = 10)
+# print(m)
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_regions_reunion_taux.png", selfcontained = FALSE)
+
+# #Guadeloupe
+# m <- setView(m, lng = -61.27238249999999, lat = 16.1922065, zoom = 10)
+# print(m)
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_regions_guadeloupe_taux.png", selfcontained = FALSE)
+
+# #Martinique
+# m <- setView(m, lng = -61.02281400000001, lat = 14.635540500000001, zoom = 10)
+# print(m)
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_regions_martinique_taux.png", selfcontained = FALSE)
+
+##############################################################################

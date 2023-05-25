@@ -1,5 +1,6 @@
 library(leaflet)
 library(rgdal)
+library(mapview)
 
 departements <- rgdal::readOGR(
   "departements.geojson"
@@ -20,7 +21,7 @@ for (value in code_dep) {
   tot_dep_parsed$nb_acc[value == tot_dep_parsed$code_dep] <- tot_dep_parsed$nb_acc[value == tot_dep_parsed$code_dep] + 1
 }
 
-#View(tot_dep_parsed)
+View(tot_dep_parsed)
 
 #Création de la palette de couleurs
 pal <- colorNumeric(c("darkmagenta", "yellow", "darkcyan", "darkblue", "black"), domain = c(0:3100))
@@ -37,3 +38,11 @@ m <- leaflet(data = departements) %>%
     title = "Accidents routiers en France en 2009 (départements)")
 
 print(m)
+
+##############################################################################
+##### Les lignes suivantes servent à enregistrer les différentes cartes ######
+##############################################################################
+
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_dep_metro.png", selfcontained = FALSE)
+
+##############################################################################
