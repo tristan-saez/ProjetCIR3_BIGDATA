@@ -43,7 +43,7 @@ ggplot(week_accident, aes(x = Var1, y = CumFreq)) +
   geom_point() +
   geom_line(data = data.frame(Var1 = week_seq, CumFreq = predictions), aes(x = Var1, y = CumFreq), color = "red") +
   labs(title = paste("Régression linéaire des accidents:", formula), x = "Semaines", y = "Accidents")
-ggsave("graphiqe/regression_semaine.png", width = 6, height = 4, dpi = 300)
+ggsave("graphique/regression_semaine.png", width = 6, height = 4, dpi = 300)
 
 
 summary(regression)

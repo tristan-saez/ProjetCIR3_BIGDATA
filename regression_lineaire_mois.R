@@ -42,7 +42,7 @@ ggplot(mois_accident, aes(x = Var1, y = CumFreq)) +
   geom_line(data = data.frame(Var1 = mois_seq, CumFreq = predictions), aes(x = Var1, y = CumFreq), color = "red") +
   labs(title = paste("Régression linéaire des accidents:", formula), x = "Mois", y = "Accidents")
 
-ggsave("graphiqe/regression_mois.png", width = 6, height = 4, dpi = 300)
+ggsave("graphique/regression_mois.png", width = 6, height = 4, dpi = 300)
 confidence_intervals <- confint(regression, level=0.95)
 
 

@@ -1,8 +1,9 @@
 library(leaflet)
-library(maps)
 library(rgdal)
 
-map_france <- map("france", fill = TRUE, plot = FALSE)
+library(mapview)
+Sys.setenv("OPENSSL_CONF"="/dev/null")
+
 departements <- rgdal::readOGR(
   "departements.geojson"
 )
@@ -22,7 +23,7 @@ for (value in code_dep) {
   tot_dep_parsed$nb_acc[value == tot_dep_parsed$code_dep] <- tot_dep_parsed$nb_acc[value == tot_dep_parsed$code_dep] + 1
 }
 
-#View(tot_dep_parsed)
+View(tot_dep_parsed)
 
 #Création de la palette de couleurs
 pal <- colorNumeric(c("darkmagenta", "yellow", "darkcyan", "darkblue", "black"), domain = c(0:3100))
@@ -33,9 +34,18 @@ m <- leaflet(data = departements) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(color = ~pal(tot_dep_parsed$nb_acc), label = ~paste0("Nombre d'acidents en ", tot_dep_parsed$dep, " : ", tot_dep_parsed$nb_acc)) %>%
   addLegend(
+    layerId = "legend",
     pal = pal,
     values = c(0, 3200),
     opacity = 1.0,
     title = "Accidents routiers en France en 2009 (départements)")
 
 print(m)
+
+##############################################################################
+##### Les lignes suivantes servent à enregistrer les différentes cartes ######
+##############################################################################
+
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_dep_metro.png", selfcontained = FALSE)
+
+##############################################################################

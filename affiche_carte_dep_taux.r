@@ -1,8 +1,9 @@
 library(leaflet)
-library(maps)
 library(rgdal)
 
-map_france <- map("france", fill = TRUE, plot = FALSE)
+library(mapview)
+Sys.setenv("OPENSSL_CONF"="/dev/null")
+
 departements <- rgdal::readOGR(
   "departements.geojson"
 )
@@ -41,9 +42,18 @@ m <- leaflet(data = departements) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(color = ~pal(tot_dep_parsed$nb_taux), label = ~paste0("Taux d'acidents graves en ", tot_dep_parsed$dep, " : ", tot_dep_parsed$nb_taux,"%")) %>%
   addLegend(
+    layerId = "legend",
     pal = pal,
     values = c(0, 100),
     opacity = 1.0,
     title = "Taux d'accidents graves en France en 2009")
 
 print(m)
+
+##############################################################################
+##### Les lignes suivantes servent à enregistrer les différentes cartes ######
+##############################################################################
+
+# mapshot(m, file = "~/Documents/ProjetCir3/ProjetCIR3_BIGDATA/ProjetCIR3_BIGDATA/cartes/carte_dep_metro_taux.png", selfcontained = FALSE)
+
+##############################################################################

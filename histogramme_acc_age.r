@@ -14,7 +14,7 @@ x <- age$age
 #On change une liste à un vecteur sans oublier de mettre le sous format numérique(character avant)
 x <- as.numeric(unlist(x))
 #Extraire l'histogramme en png
-png(file="graphiqe/histogramme_acc_par_age.png")
+png(file="graphique/histogramme_acc_par_age.png")
 hist(x,col=c("#E59F13","#FA650E"), xlab = "Age", ylab = "Nombre d'accident ", main = "Quantité d'Accidents par groupe d'age", xlim=c(16,85))
 #sert à entourer l'histogramme
 box()
