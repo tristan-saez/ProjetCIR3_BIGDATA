@@ -19,7 +19,7 @@ print(mois_divisees)
 noms_mois <- c("jan", "fev", "mar", "avr", "mai", "juin", "juil", "aout", "sep", "oct", "nov", "dec")
 
 # Création de l'histogramme avec les noms des mois
-png(file="histogramme_acc_par_mois.png")
+png(file="graphiqe/histogramme_acc_par_mois.png")
 barplot(mois_divisees*100, 
         main = "Moyenne des accidents par mois",
         xlab = "Mois",

@@ -1,3 +1,5 @@
+
+
 library(ggplot2)
 
 
@@ -26,6 +28,12 @@ week_accident$CumFreq <- cumsum(week_accident$Freq)
 regression <- lm(CumFreq ~ as.numeric(Var1), data = week_accident)
 coefficients <- summary(regression)$coefficients
 
+intercept <- coefficients[1, 1]
+slope <- coefficients[2, 1]
+
+# Créez la formule de régression en tant que chaîne de caractères
+formula <- paste("Y(chapeau) =", round(intercept, 2), "+", round(slope, 2), "* x")
+
 print(coefficients)
 
 week_seq <- seq(min(as.numeric(week_accident$Var1)), max(as.numeric(week_accident$Var1)), length.out = 100)
@@ -34,7 +42,9 @@ predictions <- predict(regression, newdata = data.frame(Var1 = week_seq))
 ggplot(week_accident, aes(x = Var1, y = CumFreq)) +
   geom_point() +
   geom_line(data = data.frame(Var1 = week_seq, CumFreq = predictions), aes(x = Var1, y = CumFreq), color = "red") +
-  labs(title = "Régression linéaire des accidents", x = "Semaines", y = "Accidents")
+  labs(title = paste("Régression linéaire des accidents:", formula), x = "Semaines", y = "Accidents")
+ggsave("graphiqe/regression_semaine.png", width = 6, height = 4, dpi = 300)
+
 
 summary(regression)
 
@@ -67,8 +77,5 @@ confidence_intervals <- confint(regression, level=0.95)
 print(confidence_intervals)
 
 residuals <- resid(regression)
-residuals
 
 plot(week_accident$Var1, residuals, ylab="Residus", xlab="Semaines", main="Residus selon les semaines")
-shapiro.test(residuals)
-durbinWatsonTest(regression)
