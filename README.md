@@ -38,4 +38,5 @@ install.packages("rgdal")
 ### Description des dossiers :
 
 1. cartes : dossier contenant les cartes récupérées via les fichiers .r affiche_carte_{x}.r
-2. Autre : dossier contenant la présentation, le diagramme de G
+2. Autre : dossier contenant la présentation, le diagramme de Gantt et le Rapport de 5 pages
+3. graphiques : dossier contenant les graphiques obtenus via les fichier d'histogramme et de régression linéaire
