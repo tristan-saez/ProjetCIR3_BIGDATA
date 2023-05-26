@@ -34,11 +34,7 @@ for (date_n_hour in data$date) {
 data_mois <- data.frame(names(tot_mois), unname(tot_mois))
 colnames(data_mois) <- c("Mois", "nb_acc")
 
-View(data_mois)
-print(sum(data_mois["nb_acc"]))
-
 data_semaine <- data.frame(names(tot_semaine), unname(tot_semaine))
 colnames(data_semaine) <- c("Semaine", "nb_acc")
 
-View(data_semaine)
 print(sum(data_semaine["nb_acc"]))
