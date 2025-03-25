@@ -8,7 +8,7 @@ data <- read.csv(file = "csv_cleaned.csv", header = TRUE,  sep = ",")
 tableau_croise_grav <- table(data$descr_cat_veh, data$descr_grav)
 # png("tableau_croise_grav.png", width = 800, height = 600)
 # Test d'indépendance du chi2 sur le tableau croisé
-resultat_chi2_grav <- chisq.test(tableau_croise_grav, simulate.p.value = TRUE)
+resultat_chi2_grav <- chisq.test(tableau_croise_grav)
 residuts_chi2_grav <- resultat_chi2_grav$residuals - min(resultat_chi2_grav$residuals) + 1
 # print(resultat_chi2_grav)
 
@@ -21,7 +21,7 @@ mosaicplot(tableau_croise_grav, color = residuts_chi2_grav, shade = TRUE, main =
 tableau_croise_lum <- table(data$descr_lum, data$descr_grav)
 # png("tableau_croise_lum.png", width = 800, height = 600)
 # Test d'indépendance du chi2 sur le tableau croisé
-resultat_chi2_lum <- chisq.test(tableau_croise_lum, simulate.p.value = TRUE)
+resultat_chi2_lum <- chisq.test(tableau_croise_lum)
 residuts_chi2_lum <- resultat_chi2_lum$residuals - min(resultat_chi2_lum$residuals) + 1
 # print(resultat_chi2_lum)
 
@@ -34,7 +34,7 @@ mosaicplot(tableau_croise_lum, color = residuts_chi2_lum, main = "Tableau crois�
 tableau_croise_athmo <- table(data$descr_athmo, data$descr_grav)
 
 # Test d'indépendance du chi2 sur le tableau croisé
-resultat_chi2_athmo <- chisq.test(tableau_croise_athmo, simulate.p.value = TRUE)
+resultat_chi2_athmo <- chisq.test(tableau_croise_athmo)
 residuts_chi2_athmo <- resultat_chi2_athmo$residuals - min(resultat_chi2_athmo$residuals) + 1
 # print(resultat_chi2_athmo)
 
@@ -47,9 +47,9 @@ mosaicplot(tableau_croise_athmo, color = residuts_chi2_athmo, main = "Tableau cr
 tableau_croise_col <- table(data$descr_type_col, data$descr_grav)
 # png("tableau_croise_col.png", width = 800, height = 600)
 # Test d'indépendance du chi2 sur le tableau croisé
-resultat_chi2_col <- chisq.test(tableau_croise_col, simulate.p.value = TRUE)
+resultat_chi2_col <- chisq.test(tableau_croise_col)
 residuts_chi2_col <- resultat_chi2_col$residuals - min(resultat_chi2_col$residuals) + 1
-# print(resultat_chi2_col)
+print(resultat_chi2_col)
 
 mosaicplot(tableau_croise_col, color = residuts_chi2_col, main = "Tableau croisé du type de collision et de la gravité de l'accident", 
            xlab = "type de collision", ylab = "Gravités de l'accident")
@@ -60,9 +60,9 @@ mosaicplot(tableau_croise_col, color = residuts_chi2_col, main = "Tableau crois�
 tableau_croise_age <- table(data$age, data$descr_grav)
 # png("tableau_croise_age.png", width = 800, height = 600)
 # Test du chi2 sur le tableau croisé
-resultat_chi2_age <- chisq.test(tableau_croise_age, simulate.p.value = TRUE)
+resultat_chi2_age <- chisq.test(tableau_croise_age)
 residuts_chi2_age <- resultat_chi2_age$residuals - min(resultat_chi2_age$residuals) + 1
-# print(resultat_chi2_age)
+print(resultat_chi2_age)
 
 mosaicplot(tableau_croise_age, color = residuts_chi2_age, main = "Tableau croisé de l'age et de la gravité de l'accident", 
            xlab = "age", ylab = "Gravités de l'accident")
@@ -73,7 +73,7 @@ mosaicplot(tableau_croise_age, color = residuts_chi2_age, main = "Tableau crois�
 tableau_croise_agglo <- table(data$descr_agglo, data$descr_grav)
 # png("tableau_croise_agglo.png", width = 800, height = 600)
 # Test du chi2 sur le tableau croisé
-resultat_chi2_agglo <- chisq.test(tableau_croise_agglo, simulate.p.value = TRUE)
+resultat_chi2_agglo <- chisq.test(tableau_croise_agglo)
 residuts_chi2_agglo <- resultat_chi2_agglo$residuals - min(resultat_chi2_agglo$residuals) + 1
 print(resultat_chi2_agglo)
 

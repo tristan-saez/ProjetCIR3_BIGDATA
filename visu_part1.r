@@ -1,3 +1,4 @@
+
 library(ggplot2)
 
 data <- read.csv(file = "csv_cleaned.csv", header = TRUE,  sep = ",")
